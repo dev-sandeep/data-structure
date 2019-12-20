@@ -83,7 +83,7 @@ LinkedList.prototype.deleteByLocation = function (position = 1) {
             prevToBeDeletedNode = prev;
             toBeDeletedNode = head;
         }
-
+        
         prev = head;
         ctr++;
         head = head.next;
