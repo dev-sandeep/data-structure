@@ -1,4 +1,4 @@
-// https://www.geeksforgeeks.org/anagram-substring-search-search-permutations/
+// https://www.geeksforgeeks.org/program-censor-word-asterisks-sentence/
 
 const makeBadTable = pat => {
     let obj = {};
@@ -11,6 +11,9 @@ const makeBadTable = pat => {
 }
 
 const searchStr = (str, pat) => {
+    str = str.split("");
+    pat = pat.split("");
+
     let tempStr = str.slice(0);
     let tempPat = pat.slice(0);
 
@@ -21,6 +24,7 @@ const searchStr = (str, pat) => {
 
     let compare = (strPtr) => {
         //now start comparing str and pat
+        let pt = strPtr;
         let i = tempPat.length - 1;
         while (i >= 0) {
             if (tempStr[strPtr] != tempPat[i]) {
@@ -29,26 +33,34 @@ const searchStr = (str, pat) => {
             i--;
             strPtr--;
         }
-        console.log("matched@", strPtr + 1);
+        // console.log("matched@", strPtr + 1);
+        replaceAsteric(strPtr + 1, pt);
         return 1;
     }
 
+    let replaceAsteric = (start, end) => {
+        for (let i = start; i <= end; i++) {
+            // console.log(tempStr[i]);
+            // tempStr.slice(i, 1, '*');
+            // console.log(tempStr[i]);
+            tempStr.splice(i, 1, "*");
+        }
+    }
+
     while (strPtr < tempStr.length) {
-        if(tempStr[strPtr] != tempPat[patPtr]){
+        if (tempStr[strPtr] != tempPat[patPtr]) {
             strPtr += badTable[tempStr[strPtr]] || tempPat.length - 1;
-        }else{
+        } else {
             strPtr += compare(strPtr);
         }
-        
+
     }
+
+    console.log(tempStr.join(""));
 }
 
 
-// let str = 'BACDGABCDA';
-// let pat = 'ABCD'
-
-let str = 'THIS IS A TEST';
-let pat = "TEST"
-
-searchStr(str, pat);
-
+let word = "computer";
+let text = `GeeksforGeeks is a computer science portal for geeks. 
+People who love computer and computer codes can contribute their valuables/ideas on computer codes/structures on here.`;
+searchStr(text, word);
