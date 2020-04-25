@@ -1,55 +1,42 @@
 /**
- * Selection sort goes here
- * [some errors are there]
- * @todo: try again later
+ * QuickSort
+ * refer: https://www.youtube.com/watch?v=SLauY6PpjW4
  */
+let input = [1, 5, 3, 2, 5, 8, 2, 4, 6, 7, 3, 11];
 
-// var unsortedArr = [10, 1, 3, 2, 4, 6, 5, 9, 8, 7];
-var unsortedArr = [5, 3, 7, 6, 2, 9];
-
-function swap(arr, index1, index2) {
-    let temp = arr[index1];
-    arr[index1] = arr[index2]
-    arr[index2] = temp;
-
-    return arr;
+var swap = (arr, l, h) => {
+    let temp = arr[l];
+    arr[l] = arr[h];
+    arr[h] = temp;
 }
 
-function quickSortHelper(arr, left, right) {
-    console.log(arguments);
-    var pivot = arr[Math.floor(right + left) / 2];
-    while (left <= right) {
-        while (pivot > arr[left]) {
-            left++;
-        }
-
-        while (pivot < arr[right]) {
-            right--;
-        }
-
-        if (left <= right) {
-            arr = swap(left, right);
-            left++;
-            right--;
-        }
-    }
-
-    return left;
-}
-
-function quickSort(arr, left, right) {
-    var index;
-    if (arr.length > 1) {
-        index = quickSortHelper(arr, left, right);
-        console.log("INDX", index);
-        if (left < index - 1) {
-            quickSort(arr, left, index - 1);
-        }
-
-        if (index < right) {
-            quickSort(arr, index, right);
-        }
+let quickSort = (arr, l, h) => {
+    if (l < h) {
+        var pi = partition(arr, l, h);
+        quickSort(arr, l, pi - 1);
+        quickSort(arr, pi, h);
     }
 }
 
-quickSort(unsortedArr, 0, unsortedArr.length - 1);
+let partition = (arr, l, h) => {
+    var pivot = arr[Math.floor((l + h) / 2)];
+
+    while (l <= h) {
+        while (arr[l] < pivot)
+            l++;
+
+        while (arr[h] > pivot)
+            h--;
+
+        if (l <= h) {
+            swap(arr, l, h);
+            l++;
+            h--;
+        }
+    }
+
+    return l;
+}
+
+quickSort(input, 0, input.length - 1);
+console.log(input);
