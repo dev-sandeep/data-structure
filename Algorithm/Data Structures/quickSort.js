@@ -13,7 +13,7 @@ var swap = (arr, l, h) => {
 let quickSort = (arr, l, h) => {
     if (l < h) {
         var pi = partition(arr, l, h);
-        quickSort(arr, l, pi - 1);
+        quickSort(arr, l, pi - 1);// ###############impportant
         quickSort(arr, pi, h);
     }
 }
